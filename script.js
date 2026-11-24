@@ -1,79 +1,55 @@
+// Math.random method
 let humanScore = 0;
-
 let computerScore = 0;
+function computerBattleMove() {
+  const battleMove = ["rock", "paper", "scissors"];
+  const computerselection = Math.floor(Math.random() * battleMove.length);
 
-function getComputerChoice() {
-  const choices = ["rock", "paper", "scissors"];
+  const randomSelection = battleMove[computerselection];
+  return randomSelection;
+}
+const element = document.getElementById("target");
+element.textContent = computerBattleMove();
 
-  const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-
-  return randomChoice;
+function playerBattleMove() {
+  const humanSelection = prompt("Select an option (Rock,paper,scissors)");
+  return humanSelection;
 }
 
-function getHumanChoice() {
-  let rawInput = prompt("Select an option(rock,paper,scissors)");
-  if (rawInput === null) {
-    return "try again";
-  } else if (rawInput === rock) {
-    return true;
+function playRound() {
+  let computerResults = computerBattleMove();
+  let humanbattleMove = playerBattleMove();
+
+  if (humanbattleMove === null) {
+    return "Try again";
   }
-  let cleanInput = rawInput.toLowerCase();
-
-  return cleanInput;
-}
-
-function playRound(humanChoice, computerChoice) {
-  let humangameplay = getHumanChoice(humanChoice);
-
-  let computergameplay = getComputerChoice(computerChoice);
-
-  // computer wins here
-
-  if (computergameplay === humangameplay) {
-    return "Tie!";
-  } else if (computergameplay === "rock" && humangameplay === "scissors") {
+  humanSelection = humanSelection.lower();
+  //   computer wins below here
+  if (humanbattleMove === "rock" && computerResults === "paper") {
     computerScore += 1;
-
-    return "computer wins";
-  } else if (computergameplay === "scissors" && humangameplay === "paper") {
+    return "computer wins!";
+  } else if (humanbattleMove === "scissors" && computerResults === "rock") {
     computerScore += 1;
-
-    return "computer wins";
-  } else if (computergameplay === "paper" && humangameplay === "rock") {
+    return "computer wins!";
+  } else if (humanbattleMove === "paper" && computerResults === "scissors") {
     computerScore += 1;
-
-    return "computer wins";
+    return "computer wins!";
   }
 
-  // Human wins here
-  else if (humangameplay === "rock" && computergameplay === "scissors") {
+  //   player wins below
+  else if (humanbattleMove === "paper" && computerResults === "rock") {
     humanScore += 1;
-
-    return "Human wins";
-  } else if (humangameplay === "scissors" && computergameplay === "paper") {
+    return "human wins!";
+  } else if (humanbattleMove === "rock" && computerResults === "scissors") {
     humanScore += 1;
-
-    return "Human wins";
-  } else if (humangameplay === "paper" && computergameplay === "rock") {
+    return "human wins!";
+  } else if (humanbattleMove === "scissors" && computerResults === "paper") {
     humanScore += 1;
-
-    return "Human wins";
+    return "human wins!";
+  } else {
+    computerScore += 1;
+    return "computer wins, this is not an option!";
   }
 }
 
-for (let i = 0; i < 5; i++) {
-  console.log(playRound());
-}
-if (humanScore > computerScore) {
-  console.log("You won this!");
-} else if (computerScore > humanScore) {
-  console.log("The computer has won this!");
-} else if (computerScore === humanScore) {
-  console.log("It's a tie!");
-} else {
-  console.log("Try again");
-}
-
-console.log(`The amount of times the human score is: ${humanScore}`);
-
-console.log(`The amount of times the computer score is: ${computerScore}`);
+console.log(playRound());
